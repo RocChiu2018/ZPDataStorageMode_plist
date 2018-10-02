@@ -16,9 +16,9 @@
  4、Library文件夹中的Preference文件夹：保存应用的所有偏好设置，iOS的Settings(设置)应用会在该目录中查找应用的设置信息。iTunes同步设备时会备份该目录。
  
  iOS中数据存储的常用方式：
- 1、XML属性列表（plist）存储方式：该存储方式只能存储一些Foundation框架中的对象类型（数组、字典等），不能存储自定义对象类型，具有局限性；
- 2、Preferences(偏好设置)存储方式：一般存储简单的软件参数配置，比如是否自动登录，等等；只能存储NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL等对象类型，具有局限性；
- 3、NSKeyedArchiver归档(NSCoding)存储方式：一般用来存储自定义对象类型，也可以存储Foundation框架中的对象类型（数组、字典等），具有广泛性；
+ 1、XML属性列表(plist)存储方式：这种存储方式只能存储一些Foundation框架中的对象类型（数组、字典等）的数据，而不能存储非对象类型（基本数据类型）或者自定义对象类型的数据，所以这种存储方式具有一定的局限性。这种存储方式是把要存储的数据以plist文件的方式存储到手机沙盒中的Documents文件夹中；
+ 2、Preferences（偏好设置）存储方式：这种存储方式一般存储简单的软件参数配置的数据，比如是否自动登录等等，而不能存储大批量的数据。这种存储方式可以存储一些Foundation框架中的对象类型（数组、字典等）的数据，同时也可以存储非对象类型（基本数据类型）的数据，只不过在存储非对象类型数据的时候在系统编译的时候系统会自动把非对象类型的数据转换为对象类型的数据存储在plist文件中，例如：在编译过程中系统会把float类型的数据转换为NSNumber类型的数据。但是这种存储方式不能存储自定义对象类型的数据，所以它具有一定的局限性。这种存储方式是把要存储的数据以plist文件的方式存储到手机沙盒中的Library文件夹中的Preferences文件夹里面；
+ 3、NSKeyedArchiver归档(NSCoding)存储方式：这种存储方式不仅可以存储Foundation框架中的对象类型（数组、字典等）的数据以及非对象类型（基本数据类型）的数据，还可以存储自定义对象类型的数据，所以这种存储方式具有广泛性；
  4、SQLite3：适用于存储大批量的数据；
  5、Core Data：封装了SQLite3，但是效率低下。
  */
@@ -51,7 +51,7 @@
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"data.plist"];
     NSLog(@"filePath = %@", filePath);
     
-    NSArray *array = [NSArray arrayWithObjects:@"123", @"dddddvf", @"ddmckdmck", nil];
+    NSArray *array = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.3], @"dddddvf", @"ddmckdmck", nil];
     
     //用plist的存储方式把数据存储在沙盒中的Documents文件夹内
     [array writeToFile:filePath atomically:YES];

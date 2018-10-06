@@ -41,11 +41,12 @@
 #pragma mark ————— 点击保存按钮 —————
 - (IBAction)save
 {
-    //获取沙盒的根路径
-    NSString *homePath = NSHomeDirectory();
-    
-    //获取沙盒里面的Documents文件夹的路径
+    //获取沙盒里面的Documents文件夹的路径的第一种方法
+    NSString *homePath = NSHomeDirectory();  //获取沙盒的根路径
     NSString *documentsPath = [homePath stringByAppendingPathComponent:@"Documents"];
+    
+    //获取沙盒里面的Documents文件夹的路径的第二种方法
+//    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
     //获取将要存储在沙盒中的Documents文件夹内的plist文件的路径
     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"data.plist"];
